@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      TZ: "America/Sao_Paulo"
+      MYSQL_ROOT_PASSWORD: "admin"
+      MYSQL_DATABASE: "testedb"
+    ports:
+      - "3306:3306"
+    #volumes:
+      #- .\mysql:/var/lib/mysql
+    networks:
+      - mysql-compose-network
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    environment:
+      TZ: "America/Sao_Paulo"    
+    ports:
+      - "8180:8080"
+    networks:
+      - mysql-compose-network
+
+networks: 
+  mysql-compose-network:
+    driver: bridge
