@@ -1,0 +1,24 @@
+version: "3"
+services:
+    activemq:
+        image: rmohr/activemq:5.10.0
+        container_name: activemq
+        ports:
+            - "61616:61616" # broker (admin:adminactivemq)(amq:amq)
+            - "8161:8161"   # web    http://localhost:8161/admin (admin:admin)     
+        environment:
+            TZ: "America/Sao_Paulo"         
+        volumes:
+            - .\conf\activemq.xml:/opt/apache-activemq-5.10.0/conf/activemq.xml:ro
+            - .\logs:/opt/apache-activemq-5.10.0/data
+        
+    activemq-com-senha:
+        image: vromero/activemq-artemis:latest-alpine
+        container_name: activemq_com_senha
+        environment:
+            TZ: "America/Sao_Paulo"
+            ARTEMIS_USERNAME: activemq
+            ARTEMIS_PASSWORD: activemq_senha
+        ports:
+          - 61617:61617
+          - 8162:8162
