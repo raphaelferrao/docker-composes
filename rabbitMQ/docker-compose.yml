@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+    rabbitMQ:
+        container_name: rabbitMQ-local
+        image: rabbitmq:3-management
+        hostname: localhost
+        environment:
+            TZ: "America/Sao_Paulo"         
+        ports:
+            - 15672:15672
+            - 5672:5672
