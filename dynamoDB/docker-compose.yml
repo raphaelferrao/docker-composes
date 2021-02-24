@@ -1,0 +1,35 @@
+version: "3"
+
+volumes: 
+  dynamodb_data:
+  dynamodb_test_data:
+
+services:
+    dynamodb:
+        image: amazon/dynamodb-local
+        container_name: dynamodb-local
+        hostname: dynamodb-local
+        ports:
+          - "8000:8000"
+        volumes:
+            - dynamodb_data:/home/dynamodblocal
+        environment:
+            TZ: "America/Sao_Paulo" 
+            AWS_ACCESS_KEY_ID: AWS_ID
+            AWS_SECRET_ACCESS_KEY: AWS_KEY
+            AWS_REGION: us-east-1
+        command: -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal
+    dynamodb-test:
+        image: amazon/dynamodb-local
+        container_name: dynamodb-local-test
+        hostname: dynamodb-local-test
+        ports:
+          - "8100:8000"
+        volumes:
+            - dynamodb_test_data:/home/dynamodblocal
+        environment:
+            TZ: "America/Sao_Paulo" 
+            AWS_ACCESS_KEY_ID: AWS_ID
+            AWS_SECRET_ACCESS_KEY: AWS_KEY
+            AWS_REGION: us-east-1
+        command: -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal        
