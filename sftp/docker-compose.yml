@@ -1,0 +1,10 @@
+version: "3"
+services:
+    sftp:
+        image: atmoz/sftp
+        container_name: sftp
+        ports:
+            - "22:22"
+        command: camel:123:::camel
+        environment:
+            TZ: "America/Sao_Paulo" 
