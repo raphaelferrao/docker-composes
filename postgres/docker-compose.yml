@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    environment:
+      TZ: "America/Sao_Paulo"
+      POSTGRES_PASSWORD: "admin"
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres-compose-network
+
+  adminer:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    environment:
+      TZ: "America/Sao_Paulo"
+      PGADMIN_DEFAULT_EMAIL: "usuario@email.com"
+      PGADMIN_DEFAULT_PASSWORD: "PgAdmin1234!"
+    ports:
+      - "16543:80"
+    depends_on:
+      - db
+    networks:
+      - postgres-compose-network
+
+networks: 
+  postgres-compose-network:
+    driver: bridge
