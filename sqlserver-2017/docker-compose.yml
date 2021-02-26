@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: sqlserver2017
+    environment:
+      TZ: "America/Sao_Paulo"
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "admin123!"
+    ports:
+      - "1433:1433"
+    networks:
+      - sqlserver2017-compose-network
+
+  adminer:
+    image: adminer
+    container_name: sqlserver_adminer
+    environment:
+      TZ: "America/Sao_Paulo"    
+    ports:
+      - "8180:8080"
+    networks:
+      - sqlserver2017-compose-network
+
+networks: 
+  sqlserver2017-compose-network:
+    driver: bridge
